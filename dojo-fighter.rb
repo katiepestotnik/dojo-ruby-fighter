@@ -1,15 +1,3 @@
-# puts "Do you want to |fight| or |run|?"
-
-# input = gets.chomp #chomp trims whitespace
-
-# if input == "fight"
-#     puts "you are fighting"
-# elsif input == "run"
-#     puts "you are running"
-# else 
-#     puts "invalid choice"
-# end
-
 class Fighter
     attr_reader :name
     attr_accessor :defense, :strength, :luck, :life
@@ -31,13 +19,6 @@ class Fighter
     end
 end
 
-ueshiba = Fighter.new "Ueshiba", 7, 7, 7, 7
-saito = Fighter.new "Saito", 5, 100, 5, 5
-
-
-saito.attack ueshiba
-
-
 class Dojo
     def self.lift_weights fighter
         fighter.strength += 1
@@ -53,9 +34,44 @@ class Dojo
     end
 end
 
-puts saito.strength
-Dojo.lift_weights(saito)
-puts saito.strength
+puts "Welcome to Dojo Fighter! What is your |name|?"
+
+player_name = gets.chomp
+player_name == "name"
+puts "Player's name: #{player_name}"
+player_name = Fighter.new "#{player_name}", 0, 0, 0, 10
+saito = Fighter.new "Ueshiba", 4, 4, 4, 10
+
+puts "#{player_name.name} and #{saito.name} are training at the dojo for 10 weeks. After 10 weeks, they will battle each other to determine the ultimate champion!"
+
+week = 1
+while week <=10
+    puts "How do you want to train for week #{week}? |weights|, |endurance|, or |luck|? "
+        choice = gets.chomp
+        if choice == "weights"
+            Dojo.lift_weights(player_name)
+        elsif choice == "endurance"
+            Dojo.endurance_training(player_name)
+        elsif choice == "luck"
+            Dojo.coin_in_fountain(player_name)
+        else
+            puts "Invalid Choice"
+        end
+        week += 1
+    end
+
+
+#"Do you want to |fight| or |run|?"
+
+# if input == "fight"
+#     puts "you are fighting"
+# elsif input == "run"
+#     puts "you are running"
+# else 
+#     puts "invalid choice"
+# end
+
+
 
 
 
