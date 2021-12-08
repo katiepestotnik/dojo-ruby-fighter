@@ -68,19 +68,22 @@ puts "TIME TO BATTLE!!!!!!!!!!"
 
 loop do
     player_name.attack ueshiba
-    ueshiba.attack player_name
-    puts "Ueshiba life value = #{ueshiba.life}"
-    puts "#{player_name.name} life value = #{player_name.life}"
-    if player_name.defense > ueshiba.strength
-        puts "#{ueshiba.name} loses due to inadequate strength against #{player_name.name}'s endurance training!"
+    if ueshiba.life <= 0
+        puts "#{player_name.name} wins the battle"
         break
     end
+    puts "Ueshiba life value = #{ueshiba.life}"
+    puts "#{player_name.name} life value = #{player_name.life}"
+    ueshiba.attack player_name
     if player_name.life <= 0
         puts "#{ueshiba.name} wins the battle!"
         break
     end
-    if ueshiba.life <= 0
-        puts "#{player_name.name} wins the battle"
-        break
+    puts "Ueshiba life value = #{ueshiba.life}"
+    puts "#{player_name.name} life value = #{player_name.life}"
+    if player_name.defense > ueshiba.strength
+        puts "No points scored since #{ueshiba.name} performed a lot of endurance training."
+    elsif ueshiba.strength > player_name.defense
+        puts "No points scored since #{player_name.name} performed a lot of endurance training."
     end
 end
