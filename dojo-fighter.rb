@@ -10,29 +10,34 @@ class Fighter
     end
     def attack opponent
         damage = @strength - opponent.defense
+        add_lucky = @luck
         if damage <= 0
-            opponent.life += 1
-            puts "#{name}'s attack failed. No damage to #{opponent.name}. #{opponent.name} gains 1 point to their life."
+            @life -= 1
+            puts "#{name}'s attack failed. No damage to #{opponent.name}. #{name} losses 1 point to life for failed attack."
         else
-            opponent.life = opponent.life - damage
-            puts "#{name} attacked with #{damage} and now #{opponent.name} has a life value of #{opponent.life}"
+            opponent.life = opponent.life - (damage + add_lucky)
+            puts "#{name} attacked with #{damage} and now #{opponent.name} has a life value of #{opponent.life} since #{name} has lucky #{add_lucky} points adding to the damage."
         end
     end
 end
 class Dojo
     def self.lift_weights fighter
         fighter.strength += 1
-        puts "Strength increased to #{fighter.strength}."
+        puts "Weight training increases strength to #{fighter.strength}."
     end
     def self.endurance_training fighter
         fighter.defense += 1
-        puts "Defense increased to #{fighter.defense}."
+        puts "Endurance training increases defense to #{fighter.defense}."
     end
     def self.coin_in_fountain fighter
         fighter.luck += 1
-        puts "Luck increased to #{fighter.luck}."
+        puts "Lucky coin in the fountain increases luck to #{fighter.luck}."
     end
 end
+
+def_number = rand(1..10)
+strength_number = rand(1..10)
+luck_number = rand(1..2)
 
 puts "Welcome to Dojo Fighter! What is your |name|?"
 
@@ -40,7 +45,7 @@ player_name = gets.chomp
 player_name == "name"
 puts "Player's name: #{player_name}"
 player_name = Fighter.new "#{player_name}", 0, 0, 0, 10
-ueshiba = Fighter.new "Ueshiba", 4, 4, 4, 10
+ueshiba = Fighter.new "Ueshiba", def_number, strength_number, luck_number, 10
 
 puts "#{player_name.name} and #{ueshiba.name} are training at the dojo for 10 weeks. After 10 weeks, they will battle each other to determine the ultimate champion!"
 
@@ -59,17 +64,22 @@ while week <=10
         end
         week += 1
     end
-puts "TIME TO BATTLE"
+puts "TIME TO BATTLE!!!!!!!!!!"
 
 loop do
     player_name.attack ueshiba
     ueshiba.attack player_name
-    puts ueshiba.life
-    puts player_name.life
+    puts "Ueshiba life value = #{ueshiba.life}"
+    puts "#{player_name.name} life value = #{player_name.life}"
+    if player_name.defense > ueshiba.strength
+        puts "#{ueshiba.name} loses due to inadequate strength against #{player_name.name}'s endurance training!"
+        break
+    end
     if player_name.life <= 0
         puts "#{ueshiba.name} wins the battle!"
         break
-    elsif ueshiba.life <= 0
+    end
+    if ueshiba.life <= 0
         puts "#{player_name.name} wins the battle"
         break
     end
